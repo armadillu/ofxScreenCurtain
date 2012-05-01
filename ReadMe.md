@@ -1,4 +1,4 @@
-Use it to handle "fade to black" situations... Think of it as of a theather curtain.
+Use it to handle "fade to black" situations... Think of it as a theather curtain.
 
 It draws a rectangle as big as u specify in the color u specify, and fades its alpha in and out.
 
