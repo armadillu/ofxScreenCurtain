@@ -22,7 +22,7 @@ class ofxScreenCurtain {
 		void draw();
 		
 		//main actions
-		bool dropAndRaiseCurtain( float dropDuration, float downDuration, float raiseDuration );
+		bool dropAndRaiseCurtain( float dropDuration, float downDuration, float raiseDuration, bool regardless = false );
 		bool dropCurtain( float duration , bool regardless = false);
 		bool raiseCurtain( float duration , bool regardless = false);
 		

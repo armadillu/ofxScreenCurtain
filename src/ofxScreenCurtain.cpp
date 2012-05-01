@@ -71,9 +71,9 @@ void ofxScreenCurtain::draw(){
 }
 
 
-bool ofxScreenCurtain::dropAndRaiseCurtain( float dropDuration, float downDuration, float raiseDuration  ){
+bool ofxScreenCurtain::dropAndRaiseCurtain( float dropDuration, float downDuration, float raiseDuration , bool regardless ){
 
- 	if ( ready_ ){
+ 	if ( ready_ || regardless ){
 		havereportedCurtainDown = false;
 		ready_ = false;
 		mode_ = DOWN_THEN_UP;
