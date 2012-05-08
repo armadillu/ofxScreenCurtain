@@ -35,13 +35,13 @@ void ofxScreenCurtain::update( float dt ){
 							transitionCounter_ ++;
 							break;
 
-						case 1:
+						case 1: //curtain has done waiting down, has to rise
 							alpha_.setDuration(raiseDuration_);
 							alpha_.animateTo( 0.0f );
 							transitionCounter_ ++;
 							break;
 
-						case 2:
+						case 2: //curtain is back up, we are done
 							ready_ = true;
 							transitionCounter_ = 0;
 							break;
@@ -52,7 +52,6 @@ void ofxScreenCurtain::update( float dt ){
 
 			case DOWN:
 			case UP:
-
 				if ( alpha_.hasFinishedAnimating() ){
 					ready_ = true;
 				}
@@ -64,8 +63,9 @@ void ofxScreenCurtain::update( float dt ){
 
 void ofxScreenCurtain::draw(){
 
-	if ( alpha_.val() > 0.0f ){
-		ofSetColor( curtainColor_.r, curtainColor_.g, curtainColor_.b, 255 * alpha_.val() );
+	if ( alpha_.val() > 0.001f ){
+		ofEnableAlphaBlending();
+		ofSetColor( curtainColor_.r, curtainColor_.g, curtainColor_.b, curtainColor_.a * alpha_.val() );
 		ofRect( screenRect );
 	}
 }
