@@ -20,6 +20,7 @@ class ofxScreenCurtain {
 		void setup(ofColor curtainColor, ofRectangle screenSize);
 		void update( float dt );
 		void draw();
+		void drawDebug();
 		
 		//main actions
 		bool dropAndRaiseCurtain( float dropDuration, float downDuration, float raiseDuration, bool regardless = false );
@@ -36,8 +37,15 @@ class ofxScreenCurtain {
 		
 		/// use only after calling dropAndRaiseCurtain().
 		/// this will return true (only once per drop-raise) once the curtain has hit bottom, 
-		///to use with shameful polling to trigger stuff once when curtain is down
+		/// to use with shameful polling to trigger stuff once when curtain is down
 		bool hasReachedBottom();
+	
+		/// use only after calling dropAndRaiseCurtain().
+		/// this will return true (only once per drop-raise) once the curtain has hit the top , 
+		/// to use with shameful polling to trigger stuff once when curtain has completed the drop-rise
+		bool hasReachedTop();
+	
+	
 		
 		void setAlphaWhenDown(float a){ targetAlpha = a;}
 		void setAnimationCurve(AnimCurve c){ alpha_.setCurve(c); }
@@ -56,7 +64,9 @@ class ofxScreenCurtain {
 		int transitionCounter_; //use this to know in which phase of DOWN_THEN_UP we are, [0..2]
 		
 		bool ready_;
-		bool havereportedCurtainDown;
+		bool haveReportedCurtainDown;
+		bool haveReportedCurtainTop;
+		bool finishedDropRaiseTransition;
 
 };
 

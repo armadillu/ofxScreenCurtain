@@ -12,6 +12,9 @@ void testApp::setup(){
 	a = "Hello!";
 	b = "GoodBye!";	
 	currentMessage = &a;
+	
+	//set curtain animation curve
+	curtain.setAnimationCurve( EASE_IN_EASE_OUT );
 }
 
 
@@ -22,6 +25,11 @@ void testApp::update(){
 	//once curtain hits the bottom, swap the message!
 	if ( curtain.hasReachedBottom() ){
 		swapMessage();
+	}
+	
+	//once curtain is fully back up, print!
+	if (curtain.hasReachedTop()){
+		printf("completed curtain Drop and Raise!\n");
 	}
 }
 
@@ -36,9 +44,12 @@ void testApp::draw(){
 	ofPopMatrix();
 	
 	curtain.draw();
+	ofSetColor(255,255,255);
+	curtain.drawDebug();
 	
 	ofSetColor(255, 0, 0);
-	ofDrawBitmapString("Click Mouse to Drop Curtain", 10,15);	
+	ofDrawBitmapString("Click Mouse to Drop Curtain", 10,15);
+	
 }
 
 
@@ -55,9 +66,9 @@ void testApp::mousePressed(int x, int y, int button){
 
 	if (curtain.isReady()){
 		curtain.dropAndRaiseCurtain(
-									0.25 /*go down duration*/, 
+									0.25 /*drop duration*/, 
 									0.1 /*stay down duration*/, 
-									0.25 /*go up duration*/
+									0.25 /*rise duration*/
 									);
 	}
 }

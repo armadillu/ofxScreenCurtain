@@ -8,11 +8,14 @@ ofxScreenCurtain::ofxScreenCurtain(){
 
 void ofxScreenCurtain::setup(ofColor curtainColor, ofRectangle screen){
 	alpha_.reset(0.0f);
-	alpha_.setCurve(TANH);
+	alpha_.setCurve(EASE_IN_EASE_OUT);
 	screenRect = screen;
 	curtainColor_ = curtainColor;	
 	ready_ = true;
 	targetAlpha = 1.0f;
+	haveReportedCurtainDown = true;
+	haveReportedCurtainTop = true;
+	finishedDropRaiseTransition = false;
 }
 
 void ofxScreenCurtain::update( float dt ){
@@ -42,12 +45,12 @@ void ofxScreenCurtain::update( float dt ){
 							break;
 
 						case 2: //curtain is back up, we are done
+							finishedDropRaiseTransition = true;
 							ready_ = true;
 							transitionCounter_ = 0;
 							break;
 					}
 				}
-
 				break;
 
 			case DOWN:
@@ -70,11 +73,22 @@ void ofxScreenCurtain::draw(){
 	}
 }
 
+void ofxScreenCurtain::drawDebug(){
+	
+	string mode;
+	if (mode_ == DOWN) mode = "DOWN";
+	if (mode_ == UP) mode = "UP";
+	if (mode_ == DOWN_THEN_UP) mode = "DOWN_THEN_UP";
+	
+	ofDrawBitmapString( "curtainMode: " + mode,  screenRect.x + 10, screenRect.y + screenRect.height - 35);
+	ofDrawBitmapString( "alpha: " + ofToString( alpha_.val(), 2),  screenRect.x + 10, screenRect.y + screenRect.height - 20);	
+}
 
 bool ofxScreenCurtain::dropAndRaiseCurtain( float dropDuration, float downDuration, float raiseDuration , bool regardless ){
 
  	if ( ready_ || regardless ){
-		havereportedCurtainDown = false;
+		finishedDropRaiseTransition = false;
+		haveReportedCurtainDown = haveReportedCurtainTop = false;
 		ready_ = false;
 		mode_ = DOWN_THEN_UP;
 		transitionCounter_ = 0;
@@ -94,7 +108,7 @@ bool ofxScreenCurtain::dropCurtain( float duration , bool regardless){
 
 	
 	if ( ready_ || regardless ){
-		havereportedCurtainDown = true;
+		haveReportedCurtainDown = haveReportedCurtainTop = true;
 		ready_ = false;
 		mode_ = DOWN;
 		alpha_.setDuration( duration );
@@ -109,7 +123,7 @@ bool ofxScreenCurtain::raiseCurtain( float duration, bool regardless ){
 
 	
 	if ( ready_  || regardless ){
-		havereportedCurtainDown = true;
+		haveReportedCurtainDown = haveReportedCurtainTop = true;
 		ready_ = false;
 		mode_ = UP;
 		alpha_.setDuration( duration);
@@ -120,9 +134,21 @@ bool ofxScreenCurtain::raiseCurtain( float duration, bool regardless ){
 }
 
 bool ofxScreenCurtain::hasReachedBottom(){
-	if ( !havereportedCurtainDown ){
+	if ( !haveReportedCurtainDown ){
 		if (weAreBeyondFirstDrop()){
-			havereportedCurtainDown = true;
+			haveReportedCurtainDown = true;
+			return true;
+		}
+	}
+	return false;
+}
+
+
+bool ofxScreenCurtain::hasReachedTop(){
+	if ( !haveReportedCurtainTop ){		
+		if (finishedDropRaiseTransition){
+			haveReportedCurtainTop = true;
+			finishedDropRaiseTransition = false;
 			return true;
 		}
 	}
