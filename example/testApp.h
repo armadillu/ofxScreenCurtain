@@ -12,7 +12,8 @@ class testApp : public ofBaseApp{
 
 		void swapMessage();
 		void mousePressed(int x, int y, int button);
-		
+		void keyPressed( int key );
+	
 		ofxScreenCurtain curtain;
 	
 		string a, b;

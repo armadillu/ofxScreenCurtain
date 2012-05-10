@@ -48,7 +48,8 @@ void testApp::draw(){
 	curtain.drawDebug();
 	
 	ofSetColor(255, 0, 0);
-	ofDrawBitmapString("Click Mouse to Drop Curtain", 10,15);
+	ofDrawBitmapString("Click Mouse to Drop Curtain >> will only accept if curtain is idle", 10,15);
+	ofDrawBitmapString("press any key to Drop Curtain >> will accept even if curtain is moving", 10,30);
 	
 }
 
@@ -64,11 +65,23 @@ void testApp::swapMessage(){
 
 void testApp::mousePressed(int x, int y, int button){
 
-	if (curtain.isReady()){
-		curtain.dropAndRaiseCurtain(
-									0.25 /*drop duration*/, 
-									0.1 /*stay down duration*/, 
-									0.25 /*rise duration*/
-									);
-	}
+	//wont do anything if curtain is already running
+	curtain.dropAndRaiseCurtain(
+								0.25 /*drop duration*/, 
+								0.1 /*stay down duration*/, 
+								0.25 /*rise duration*/
+								);
+
+}
+
+
+void testApp::keyPressed( int key ){
+
+	curtain.dropAndRaiseCurtain(
+								0.25 /*drop duration*/, 
+								0.1 /*stay down duration*/, 
+								0.25 /*rise duration*/,
+								true /*do it regardless, even if curtain is moving*/
+								);
+
 }

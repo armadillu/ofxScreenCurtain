@@ -94,7 +94,7 @@ bool ofxScreenCurtain::dropAndRaiseCurtain( float dropDuration, float downDurati
 		transitionCounter_ = 0;
 		downDuration_ = downDuration;
 		raiseDuration_ = raiseDuration;
- 		alpha_.reset( 0.0f );
+ 		if (!regardless) alpha_.reset( 0.0f );
 		alpha_.setDuration( dropDuration );
 		alpha_.animateTo( targetAlpha );
 		return true;
