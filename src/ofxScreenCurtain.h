@@ -45,10 +45,11 @@ class ofxScreenCurtain {
 		/// to use with shameful polling to trigger stuff once when curtain has completed the drop-rise
 		bool hasReachedTop();
 	
-	
-		
+			
 		void setAlphaWhenDown(float a){ targetAlpha = a;}
 		void setAnimationCurve(AnimCurve c){ alpha_.setCurve(c); }
+		
+		float getCurtainAlpha(){ return alpha_.val(); }
 		
 	private:
 
