@@ -18,6 +18,10 @@ void ofxScreenCurtain::setup(ofColor curtainColor, ofRectangle screen){
 	finishedDropRaiseTransition = false;
 }
 
+void ofxScreenCurtain::setScreenSize(ofRectangle screenSize){
+	screenRect = screenSize;
+}
+
 void ofxScreenCurtain::update( float dt ){
 
 	if ( ready_ == false ){	//something is going on

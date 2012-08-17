@@ -21,6 +21,7 @@ class ofxScreenCurtain {
 		void update( float dt );
 		void draw();
 		void drawDebug();
+		void setScreenSize(ofRectangle screenSize);
 		
 		//main actions
 		bool dropAndRaiseCurtain( float dropDuration, float downDuration, float raiseDuration, bool regardless = false );
