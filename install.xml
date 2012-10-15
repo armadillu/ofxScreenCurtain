@@ -1,0 +1,29 @@
+<install>
+	<name>ofxScreenCurtain</name>
+    <version>1.0</version>
+    <author><[CDATA[Oriol Ferrer <oriol@uri.cat> ]]></author>
+   
+    <code_url>https://github.com/armadillu/ofxScreenCurtain</code_url>
+    <site_url>http://www.uri.cat</site_url>
+    <download_url>https://github.com/armadillu/ofxScreenCurtain</download_url>
+   
+    <description><![CDATA[
+          Use it to handle "fade to black" situations... Think of it as a theater curtain. It draws a rectangle as big as u specify in the color u specify, and fades its alpha in and out. Requires ofxAnimatable addon.
+    ]]></description>
+    
+	<add>
+		
+		<!-- 	=====================================================================	-->
+		<!--	========================== add per project using this addon =========	-->
+		<!-- 	=====================================================================	-->
+	
+		<src>
+			<folder name="addons/ofxScreenCurtain/src">
+				<file>../../../addons/ofxScreenCurtain/src/ofxScreenCurtain.cpp</file>
+				<file>../../../addons/ofxScreenCurtain/src/ofxScreenCurtain.h</file>
+			</folder>
+		</src>
+		
+	</add>    
+    
+</install>
