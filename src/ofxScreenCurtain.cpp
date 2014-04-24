@@ -70,9 +70,10 @@ void ofxScreenCurtain::update( float dt ){
 
 void ofxScreenCurtain::draw(){
 
-	if ( alpha_.val() > 0.001f ){
+	float a = alpha_.val();
+	if ( a > 0.001f ){
 		ofEnableAlphaBlending();
-		ofSetColor( curtainColor_.r, curtainColor_.g, curtainColor_.b, curtainColor_.a * alpha_.val() );
+		ofSetColor( curtainColor_.r, curtainColor_.g, curtainColor_.b, curtainColor_.a * a );
 		ofRect( screenRect );
 	}
 }
