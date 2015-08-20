@@ -72,9 +72,11 @@ void ofxScreenCurtain::draw(){
 
 	float a = alpha_.val();
 	if ( a > 0.001f ){
+		ofPushStyle();
 		ofEnableAlphaBlending();
 		ofSetColor( curtainColor_.r, curtainColor_.g, curtainColor_.b, curtainColor_.a * a );
 		ofRect( screenRect );
+		ofPopStyle();
 	}
 }
 
